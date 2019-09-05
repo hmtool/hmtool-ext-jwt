@@ -12,11 +12,34 @@ import lombok.Data;
 @Data
 public class Jwt {
 
+    /**
+     * 默认是authToken
+     */
     private String clientId;
+
+    /**
+     * 默认是aHVhbmdtaWFv
+     */
     private String secret;
+
+    /**
+     * 默认是mhuang
+     */
     private String name;
+
+    /**
+     * 默认是Authorization，请求Header的头
+     */
     private String type;
+
+    /**
+     * header值前缀必带参数,默认是Bearer
+     */
     private String headerName;
+
+    /**
+     * 过期时间、毫秒级、默认1分钟
+     */
     private Long expireSecond;
 
     public Jwt(){

@@ -14,5 +14,5 @@ public final class JwtConsts {
     public static final String DEFAULT_NAME = "mhuang";
     public static final String DEFAULT_TYPE = "Authorization";
     public static final String DEFAULT_HEADER_NAME = "Bearer";
-    public static final Long DEFAULT_EXPIRE_SECOND = 60000L;
+    public static final Long   DEFAULT_EXPIRE_MINUTE = 60 * 24 * 30L;
 }

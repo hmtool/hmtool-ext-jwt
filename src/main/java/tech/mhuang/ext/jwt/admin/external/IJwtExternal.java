@@ -15,7 +15,7 @@ public interface IJwtExternal {
      *
      * @return 返回jwt生产接口
      */
-    default IJwtProducer create() {
+    default IJwtProducer create(String key) {
         return new JwtHelper();
     }
 }

@@ -12,12 +12,13 @@ import java.util.Map;
  */
 public interface IJwtProducer {
 
+    public void name(String name);
     /**
      * 添加jwt配置
      *
      * @param jwt 配置
      */
-    public void add(Jwt jwt);
+    public void add(Jwt.JwtBean jwt);
 
     /**
      * 解析token

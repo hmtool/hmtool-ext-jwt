@@ -1,6 +1,8 @@
 package tech.mhuang.ext.jwt.admin;
 
 import tech.mhuang.core.builder.BaseBuilder;
+import tech.mhuang.core.util.ObjectUtil;
+import tech.mhuang.core.util.StringUtil;
 import tech.mhuang.ext.jwt.admin.bean.Jwt;
 
 /**
@@ -20,6 +22,87 @@ public class JwtBuilder {
         return new Builder();
     }
 
+    public static class ProducerBuilder implements BaseBuilder<Jwt.JwtBean>{
+
+        private Jwt.JwtBean bean;
+
+        public ProducerBuilder(){
+            this.bean = new Jwt.JwtBean();
+        }
+        public ProducerBuilder enable(boolean enable){
+            this.bean.setEnable(enable);
+            return this;
+        }
+        /**
+         * 设置客户端id、默认为 authToken
+         *
+         * @param clientId 客户端id
+         * @return 返回构造器
+         */
+        public ProducerBuilder clientId(String clientId) {
+            this.bean.setClientId(clientId);
+            return this;
+        }
+
+        /**
+         * 设置生成Token的签名
+         *
+         * @param secret 签名
+         * @return 构造器
+         */
+        public ProducerBuilder secret(String secret) {
+            this.bean.setSecret(secret);
+            return this;
+        }
+
+        /**
+         * 设置jwt加密值、默认mhuang
+         *
+         * @param name 加密值
+         * @return 构造器
+         */
+        public ProducerBuilder name(String name) {
+            this.bean.setName(name);
+            return this;
+        }
+
+        /**
+         * 设置jwt请求头部键 默认Authorization
+         *
+         * @param type 头部的键
+         * @return 构造器
+         */
+        public ProducerBuilder type(String type) {
+            this.bean.setType(type);
+            return this;
+        }
+
+        /**
+         * 设置jwt请求头部值开头，默认Bearer
+         *
+         * @param headerName 头部值开头
+         * @return 构造器
+         */
+        public ProducerBuilder headerName(String headerName) {
+            this.bean.setHeaderName(headerName);
+            return this;
+        }
+
+        /**
+         * 设置jwt过期的分钟数、默认是30天后过期
+         *
+         * @param expireMinute 过期分钟数
+         * @return 构造器
+         */
+        public ProducerBuilder expireMinute(Long expireMinute) {
+            this.bean.setExpireMinute(expireMinute);
+            return this;
+        }
+        @Override
+        public Jwt.JwtBean builder() {
+            return this.bean;
+        }
+    }
     /**
      * 构造器
      */
@@ -28,41 +111,30 @@ public class JwtBuilder {
         private Jwt jwt;
 
         Builder() {
-            jwt = new Jwt();
+            this.jwt = new Jwt();
         }
 
-        public Builder clientId(String clientId) {
-            this.jwt.setClientId(clientId);
+        /**
+         * 创建jwt生产构造器
+         * @return jwt生产构造器
+         */
+        public ProducerBuilder createProducerBuilder(){
+            return new ProducerBuilder();
+        }
+        public Builder bindProducer(String key, Jwt.JwtBean value) {
+            jwt.getBeanMap().put(key, value);
             return this;
         }
 
-        public Builder secret(String secret) {
-            this.jwt.setSecret(secret);
-            return this;
-        }
 
-        public Builder name(String name) {
-            this.jwt.setName(name);
-            return this;
-        }
-
-        public Builder type(String type) {
-            this.jwt.setType(type);
-            return this;
-        }
-
-        public Builder headerName(String headerName) {
-            this.jwt.setHeaderName(headerName);
-            return this;
-        }
-
-        public Builder expireSecond(Long expireSecond) {
-            this.jwt.setExpireSecond(expireSecond);
-            return this;
-        }
-
+        /**
+         * 构建JwtFramework 对象、通过start方法进行启动
+         *
+         * @return
+         */
         @Override
         public JwtFramework builder() {
+            //拼装数据
             return new JwtFramework(this.jwt);
         }
     }

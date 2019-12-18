@@ -12,10 +12,10 @@
 
     <groupId>tech.mhuang</groupId>
     <artifactId>hmtool-ext-jwt</artifactId>
-    <version>1.3.0</version>
+    <version>1.3.1</version>
     <properties>
         <jwt.version>0.9.1</jwt.version>
-        <lombok.version>1.18.8</lombok.version>
+        <lombok.version>1.18.10</lombok.version>
         <slf4j.version>1.7.28</slf4j.version>
     </properties>
     <dependencies>
